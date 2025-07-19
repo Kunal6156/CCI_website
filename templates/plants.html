@@ -1,0 +1,425 @@
+{% extends "base.html" %}
+
+{% block title %}Our Plants - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 cement-gradient hero-pattern">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 floating-animation" data-aos="fade-up">Our Manufacturing Plants
+        </h1>
+        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+
+
+            State-of-the-art cement manufacturing facilities across India
+        </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4 text-lg">
+        <div class="bg-white bg-opacity-20 glass-morphism px-6 py-3 rounded-full">
+            <i class="fas fa-industry mr-2"></i>
+            <span class="font-semibold">{{ plants|length }}</span> Active Plants
+        </div>
+        <div class="bg-white bg-opacity-20 glass-morphism px-6 py-3 rounded-full">
+            <i class="fas fa-chart-line mr-2"></i>
+            <span class="font-semibold">{{ plants|sum(attribute='capacity') }}M</span> Total Capacity
+        </div>
+        <div class="bg-white bg-opacity-20 glass-morphism px-6 py-3 rounded-full">
+            <i class="fas fa-map-marker-alt mr-2"></i>
+            <span class="font-semibold">{{ plants|map(attribute='state')|unique|list|length }}</span> States
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- Interactive Map Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Plant <span class="text-gradient">Locations</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Click on any plant location to view detailed information
+            </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+            <div class="relative">
+                <!-- India Map Container -->
+                <div class="bg-white rounded-lg shadow-inner p-4 mb-6">
+                    <div class="text-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800">CCI Plant Distribution Across India</h3>
+                        <p class="text-gray-600">Click on state markers to view plant details</p>
+                    </div>
+
+                    <!-- SVG Map of India -->
+                    <div class="flex justify-center">
+                        <svg width="600" height="400" viewBox="0 0 600 400" class="border rounded-lg">
+                            <!-- India outline (simplified) -->
+                            <rect width="600" height="400" fill="#e6f3ff" stroke="#3b82f6" stroke-width="2" rx="10" />
+
+                            <!-- Himachal Pradesh - Rajban Plant -->
+                            <circle cx="180" cy="120" r="8" fill="#ef4444" class="plant-marker cursor-pointer"
+                                data-plant="rajban" title="Rajban Plant, Himachal Pradesh">
+                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" />
+                            </circle>
+
+                            <!-- Telangana - Tandur Plant -->
+                            <circle cx="320" cy="280" r="8" fill="#ef4444" class="plant-marker cursor-pointer"
+                                data-plant="tandur" title="Tandur Plant, Telangana">
+                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" />
+                            </circle>
+
+                            <!-- Madhya Pradesh - Satna Plant -->
+                            <circle cx="280" cy="200" r="8" fill="#ef4444" class="plant-marker cursor-pointer"
+                                data-plant="satna" title="Satna Plant, Madhya Pradesh">
+                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" />
+                            </circle>
+
+                            <!-- Jharkhand - Jharia Plant -->
+                            <circle cx="380" cy="200" r="8" fill="#ef4444" class="plant-marker cursor-pointer"
+                                data-plant="jharia" title="Jharia Plant, Jharkhand">
+                                <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite" />
+                            </circle>
+
+                            <!-- State Labels -->
+                            <text x="180" y="140" text-anchor="middle"
+                                class="fill-gray-700 text-sm font-medium">HP</text>
+                            <text x="320" y="300" text-anchor="middle"
+                                class="fill-gray-700 text-sm font-medium">TG</text>
+                            <text x="280" y="220" text-anchor="middle"
+                                class="fill-gray-700 text-sm font-medium">MP</text>
+                            <text x="380" y="220" text-anchor="middle"
+                                class="fill-gray-700 text-sm font-medium">JH</text>
+
+                            <!-- Legend -->
+                            <g transform="translate(450, 30)">
+                                <rect width="140" height="80" fill="white" stroke="#e5e7eb" rx="5" />
+                                <text x="70" y="20" text-anchor="middle"
+                                    class="fill-gray-800 text-sm font-semibold">Legend</text>
+                                <circle cx="20" cy="40" r="6" fill="#ef4444" />
+                                <text x="35" y="45" class="fill-gray-700 text-xs">CCI Plants</text>
+                                <circle cx="20" cy="60" r="6" fill="#3b82f6" />
+                                <text x="35" y="65" class="fill-gray-700 text-xs">Upcoming</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Plant Details Panel -->
+                <div id="plant-details" class="bg-white rounded-lg shadow-lg p-6 hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800" id="plant-name"></h3>
+                        <button onclick="closePlantDetails()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="plant-info" class="space-y-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Plants Grid Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Our <span class="text-gradient">Manufacturing Units</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Detailed information about each of our cement manufacturing facilities
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for plant in plants %}
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover" data-aos="fade-up"
+                data-aos-delay="{{ loop.index * 100 }}">
+                <div class="h-48 bg-gradient-to-br from-blue-500 to-blue-700 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="bg-white bg-opacity-20 glass-morphism px-3 py-1 rounded-full text-white text-sm font-medium">
+                            {{ plant.status }}
+                        </span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <h3 class="text-2xl font-bold text-white mb-2">{{ plant.name }}</h3>
+                        <p class="text-blue-100 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            {{ plant.location }}, {{ plant.state }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600">{{ plant.capacity }}M</div>
+                            <div class="text-sm text-gray-600">Annual Capacity</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600">{{ plant.established_year }}</div>
+                            <div class="text-sm text-gray-600">Established</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Production Status</span>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium
+                                {% if plant.status == 'Operational' %}bg-green-100 text-green-800
+                                {% elif plant.status == 'Under Maintenance' %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-red-100 text-red-800{% endif %}">
+                                {{ plant.status }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Years of Operation</span>
+                            <span class="font-semibold text-gray-800">{{ 2024 - plant.established_year }} years</span>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600">Location</span>
+                            <span class="font-semibold text-gray-800">{{ plant.state }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-gray-200">
+                        <button onclick="showPlantDetails('{{ plant.id }}')"
+                            class="w-full btn-primary text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Plant Statistics Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                Production <span class="text-gradient">Statistics</span>
+            </h2>
+            <p class="text-xl text-gray-600">Our commitment to excellence in cement manufacturing</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-industry text-3xl text-blue-600"></i>
+                </div>
+                <div class="stats-counter" data-count="{{ plants|length }}">0</div>
+                <div class="text-gray-600 font-medium">Active Plants</div>
+            </div>
+
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-line text-3xl text-green-600"></i>
+                </div>
+                <div class="stats-counter" data-count="{{ plants|sum(attribute='capacity') }}">0</div>
+                <div class="text-gray-600 font-medium">Total Capacity (Million Tonnes)</div>
+            </div>
+
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-map-marker-alt text-3xl text-purple-600"></i>
+                </div>
+                <div class="stats-counter" data-count="{{ plants|map(attribute='state')|unique|list|length }}">0</div>
+                <div class="text-gray-600 font-medium">States</div>
+            </div>
+
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-calendar-alt text-3xl text-orange-600"></i>
+                </div>
+                <div class="stats-counter" data-count="{{ 2024 - plants|map(attribute='established_year')|min }}">0
+                </div>
+                <div class="text-gray-600 font-medium">Years of Experience</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Plant Details Modal -->
+<div id="plant-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800" id="modal-plant-name"></h3>
+                    <button onclick="closePlantModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <div id="modal-plant-content" class="space-y-6">
+                    <!-- Content will be dynamically loaded -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Plant data for interactive features
+    const plantData = {
+    {% for plant in plants %}
+    '{{ plant.id }}': {
+        name: '{{ plant.name }}',
+            location: '{{ plant.location }}',
+                state: '{{ plant.state }}',
+                    capacity: { { plant.capacity } },
+        established_year: { { plant.established_year } },
+        status: '{{ plant.status }}'
+    } {% if not loop.last %}, {% endif %}
+    {% endfor %}
+};
+
+    // Map interaction
+    document.querySelectorAll('.plant-marker').forEach(marker => {
+        marker.addEventListener('click', function () {
+            const plantId = this.dataset.plant;
+            showPlantOnMap(plantId);
+        });
+    });
+
+    function showPlantOnMap(plantId) {
+        const plant = plantData[plantId];
+        if (!plant) return;
+
+        const detailsPanel = document.getElementById('plant-details');
+        const plantName = document.getElementById('plant-name');
+        const plantInfo = document.getElementById('plant-info');
+
+        plantName.textContent = plant.name;
+        plantInfo.innerHTML = `
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <span class="text-gray-600">Location:</span>
+                <span class="font-semibold ml-2">${plant.location}, ${plant.state}</span>
+            </div>
+            <div>
+                <span class="text-gray-600">Capacity:</span>
+                <span class="font-semibold ml-2">${plant.capacity}M Tonnes</span>
+            </div>
+            <div>
+                <span class="text-gray-600">Established:</span>
+                <span class="font-semibold ml-2">${plant.established_year}</span>
+            </div>
+            <div>
+                <span class="text-gray-600">Status:</span>
+                <span class="font-semibold ml-2 px-2 py-1 rounded-full text-sm ${plant.status === 'Operational' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${plant.status}</span>
+            </div>
+        </div>
+    `;
+
+        detailsPanel.classList.remove('hidden');
+    }
+
+    function closePlantDetails() {
+        document.getElementById('plant-details').classList.add('hidden');
+    }
+
+    function showPlantDetails(plantId) {
+        const plant = plantData[plantId];
+        if (!plant) return;
+
+        const modal = document.getElementById('plant-modal');
+        const modalName = document.getElementById('modal-plant-name');
+        const modalContent = document.getElementById('modal-plant-content');
+
+        modalName.textContent = plant.name;
+        modalContent.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-gray-800">Plant Information</h4>
+                <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Location:</span>
+                        <span class="font-semibold">${plant.location}, ${plant.state}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Annual Capacity:</span>
+                        <span class="font-semibold">${plant.capacity} Million Tonnes</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Established:</span>
+                        <span class="font-semibold">${plant.established_year}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Status:</span>
+                        <span class="font-semibold px-2 py-1 rounded-full text-sm ${plant.status === 'Operational' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${plant.status}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <h4 class="text-lg font-semibold text-gray-800">Key Features</h4>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <ul class="space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i>Modern Manufacturing Technology</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i>Quality Control Systems</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i>Environmental Compliance</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i>Skilled Workforce</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+
+        modal.classList.remove('hidden');
+    }
+
+    function closePlantModal() {
+        document.getElementById('plant-modal').classList.add('hidden');
+    }
+
+    // Statistics counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('.stats-counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.dataset.count);
+            const increment = target / 100;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    counter.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    counter.textContent = Math.floor(current);
+                }
+            }, 30);
+        });
+    }
+
+    // Trigger animation when section is visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.disconnect();
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const statsSection = document.querySelector('.stats-counter').closest('section');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+    });
+</script>
+{% endblock %}

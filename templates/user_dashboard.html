@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<section class="cement-gradient hero-pattern text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-aos="fade-up">
+            <div class="flex items-center justify-center mb-6">
+                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center glass-morphism">
+                    <i class="fas fa-user text-2xl text-white"></i>
+                </div>
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Welcome, {{ user.username }}!</h1>
+            <p class="text-xl text-blue-100 mb-6">Your personalized CCI dashboard</p>
+            <div class="flex items-center justify-center space-x-6 text-sm">
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>Joined: {{ user.created_at.strftime('%B %Y') }}</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-envelope mr-2"></i>
+                    <span>{{ user.email }}</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    <span>{{ 'Admin' if user.is_admin else 'User' }} Account</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Dashboard Overview Cards -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Active Tenders -->
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover" data-aos="fade-up">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Tenders</p>
+                        <p class="text-3xl font-bold text-blue-600">{{ recent_tenders|length }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-file-contract text-blue-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <span class="text-sm text-green-600">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        View all tenders
+                    </span>
+                </div>
+            </div>
+
+            <!-- Recent News -->
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Latest News</p>
+                        <p class="text-3xl font-bold text-green-600">{{ recent_news|length }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-newspaper text-green-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <span class="text-sm text-green-600">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        Stay updated
+                    </span>
+                </div>
+            </div>
+
+            <!-- Account Status -->
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Account Status</p>
+                        <p class="text-3xl font-bold text-purple-600">Active</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user-check text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <span class="text-sm text-green-600">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        Verified
+                    </span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="bg-white rounded-xl shadow-lg p-6 card-hover" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Quick Actions</p>
+                        <p class="text-3xl font-bold text-orange-600">4</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-bolt text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <span class="text-sm text-orange-600">
+                        <i class="fas fa-mouse-pointer mr-1"></i>
+                        Available now
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-12" data-aos="fade-up">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-bolt mr-2 text-blue-600"></i>
+                Quick Actions
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="{{ url_for('tenders') }}" class="block bg-blue-50 hover:bg-blue-100 rounded-lg p-4 transition-colors">
+                    <div class="text-center">
+                        <i class="fas fa-file-contract text-blue-600 text-3xl mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">View Tenders</h3>
+                        <p class="text-sm text-gray-600">Browse active tenders</p>
+                    </div>
+                </a>
+                
+                <a href="{{ url_for('contact') }}" class="block bg-green-50 hover:bg-green-100 rounded-lg p-4 transition-colors">
+                    <div class="text-center">
+                        <i class="fas fa-envelope text-green-600 text-3xl mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Contact Us</h3>
+                        <p class="text-sm text-gray-600">Send a message</p>
+                    </div>
+                </a>
+                
+                <a href="{{ url_for('plants') }}" class="block bg-purple-50 hover:bg-purple-100 rounded-lg p-4 transition-colors">
+                    <div class="text-center">
+                        <i class="fas fa-industry text-purple-600 text-3xl mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">Our Plants</h3>
+                        <p class="text-sm text-gray-600">Explore facilities</p>
+                    </div>
+                </a>
+                
+                <a href="{{ url_for('about') }}" class="block bg-orange-50 hover:bg-orange-100 rounded-lg p-4 transition-colors">
+                    <div class="text-center">
+                        <i class="fas fa-info-circle text-orange-600 text-3xl mb-3"></i>
+                        <h3 class="font-semibold text-gray-800">About CCI</h3>
+                        <p class="text-sm text-gray-600">Learn more</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Tenders Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-file-contract mr-2 text-blue-600"></i>
+                        Recent Tenders
+                    </h2>
+                    <a href="{{ url_for('tenders') }}" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                        View All <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                
+                {% if recent_tenders %}
+                    <div class="space-y-4">
+                        {% for tender in recent_tenders %}
+                            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                                <h3 class="font-semibold text-gray-800 mb-2">{{ tender.title }}</h3>
+                                <div class="flex items-center justify-between text-sm text-gray-600 mb-2">
+                                    <span><i class="fas fa-hashtag mr-1"></i>{{ tender.tender_no }}</span>
+                                    <span><i class="fas fa-map-marker-alt mr-1"></i>{{ tender.location }}</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-green-600">
+                                        <i class="fas fa-calendar-alt mr-1"></i>
+                                        Closes: {{ tender.closing_date.strftime('%d %b %Y') }}
+                                    </span>
+                                    <span class="text-sm font-medium text-blue-600">
+                                        ₹{{ "{:,.0f}".format(tender.estimated_cost) }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-8">
+                        <i class="fas fa-file-contract text-gray-400 text-5xl mb-4"></i>
+                        <p class="text-gray-500">No active tenders at the moment</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Latest News Section -->
+            <div class="bg-white rounded-xl shadow-lg p-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">
+                        <i class="fas fa-newspaper mr-2 text-green-600"></i>
+                        Latest News
+                    </h2>
+                    <a href="{{ url_for('index') }}#news" class="text-green-600 hover:text-green-700 text-sm font-medium">
+                        View All <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+                
+                {% if recent_news %}
+                    <div class="space-y-4">
+                        {% for news in recent_news %}
+                            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                                <h3 class="font-semibold text-gray-800 mb-2">{{ news.title }}</h3>
+                                <p class="text-sm text-gray-600 mb-3">
+                                    {{ news.content[:120] }}{% if news.content|length > 120 %}...{% endif %}
+                                </p>
+                                <div class="flex items-center justify-between text-xs text-gray-500">
+                                    <span>
+                                        <i class="fas fa-user mr-1"></i>{{ news.author }}
+                                    </span>
+                                    <span>
+                                        <i class="fas fa-calendar-alt mr-1"></i>{{ news.date_posted.strftime('%d %b %Y') }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-8">
+                        <i class="fas fa-newspaper text-gray-400 text-5xl mb-4"></i>
+                        <p class="text-gray-500">No news updates available</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Account Information Section -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mt-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-user-circle mr-2 text-purple-600"></i>
+                Account Information
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <span class="text-gray-600">Username</span>
+                        <span class="font-medium">{{ user.username }}</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <span class="text-gray-600">Email</span>
+                        <span class="font-medium">{{ user.email }}</span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <span class="text-gray-600">Account Type</span>
+                        <span class="font-medium">
+                            {% if user.is_admin %}
+                                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">Admin</span>
+                            {% else %}
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">User</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="flex items-center justify-between py-3 border-b border-gray-200">
+                        <span class="text-gray-600">Member Since</span>
+                        <span class="font-medium">{{ user.created_at.strftime('%d %B %Y') }}</span>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h3 class="font-semibold text-gray-800 mb-4">Account Features</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Access to tender information</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Latest news and updates</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Contact support</span>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                            <span>Plant information access</span>
+                        </div>
+                        {% if user.is_admin %}
+                            <div class="flex items-center text-sm">
+                                <i class="fas fa-crown text-yellow-600 mr-2"></i>
+                                <span>Administrative privileges</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-8 mt-8 text-white" data-aos="fade-up">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-headset mr-2"></i>
+                    Need Help?
+                </h2>
+                <p class="text-blue-100 mb-6">Our support team is here to assist you with any questions or issues.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <i class="fas fa-phone text-2xl mb-2"></i>
+                        <h3 class="font-semibold">Phone Support</h3>
+                        <p class="text-sm text-blue-100">+91-11-24360744</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <i class="fas fa-envelope text-2xl mb-2"></i>
+                        <h3 class="font-semibold">Email Support</h3>
+                        <p class="text-sm text-blue-100">support@cciltd.in</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                        <i class="fas fa-clock text-2xl mb-2"></i>
+                        <h3 class="font-semibold">Business Hours</h3>
+                        <p class="text-sm text-blue-100">Mon-Fri: 9 AM - 6 PM</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <a href="{{ url_for('contact') }}" class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Send Message
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add some interactive features
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate numbers on page load
+        function animateNumbers() {
+            const stats = document.querySelectorAll('.text-3xl');
+            stats.forEach(stat => {
+                const finalValue = parseInt(stat.textContent) || 0;
+                let currentValue = 0;
+                const increment = finalValue / 30;
+                
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        stat.textContent = finalValue;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(currentValue);
+                    }
+                }, 50);
+            });
+        }
+        
+        // Trigger animation after a short delay
+        setTimeout(animateNumbers, 500);
+        
+        // Add hover effects to cards
+        const cards = document.querySelectorAll('.card-hover');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add click tracking for quick actions
+        const quickActions = document.querySelectorAll('a[href]');
+        quickActions.forEach(action => {
+            action.addEventListener('click', function() {
+                console.log('Quick action clicked:', this.href);
+            });
+        });
+    });
+</script>
+{% endblock %}

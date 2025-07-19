@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 cement-gradient hero-pattern">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 floating-animation" data-aos="fade-up">Contact Us</h1>
+        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            Get in touch with us for any inquiries, support, or business opportunities
+        </p>
+    </div>
+</section>
+
+<!-- Contact Information Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <!-- Head Office -->
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-building text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Head Office</h3>
+                <div class="space-y-2 text-gray-600">
+                    <p><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Core-2, Scope Complex</p>
+                    <p>7 Institutional Area, Lodi Road</p>
+                    <p>New Delhi - 110003</p>
+                    <p><i class="fas fa-phone mr-2 text-blue-600"></i>+91-11-24360744</p>
+                    <p><i class="fas fa-fax mr-2 text-blue-600"></i>+91-11-24361553</p>
+                </div>
+            </div>
+
+            <!-- Regional Office -->
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Regional Office</h3>
+                <div class="space-y-2 text-gray-600">
+                    <p><i class="fas fa-map-marker-alt mr-2 text-green-600"></i>Regional Office (North)</p>
+                    <p>Sector 14, Gurgaon</p>
+                    <p>Haryana - 122001</p>
+                    <p><i class="fas fa-phone mr-2 text-green-600"></i>+91-124-2397000</p>
+                    <p><i class="fas fa-fax mr-2 text-green-600"></i>+91-124-2397001</p>
+                </div>
+            </div>
+
+            <!-- Email & Online -->
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-envelope text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Email & Online</h3>
+                <div class="space-y-2 text-gray-600">
+                    <p><i class="fas fa-envelope mr-2 text-purple-600"></i>info@cciltd.in</p>
+                    <p><i class="fas fa-envelope mr-2 text-purple-600"></i>cmd@cciltd.in</p>
+                    <p><i class="fas fa-envelope mr-2 text-purple-600"></i>tender@cciltd.in</p>
+                    <p><i class="fas fa-globe mr-2 text-purple-600"></i>www.cciltd.in</p>
+                    <p><i class="fas fa-clock mr-2 text-purple-600"></i>Mon-Fri: 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Contact Form -->
+            <div data-aos="fade-right">
+                <div class="bg-white rounded-lg shadow-xl p-8">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Send us a Message</h2>
+                    <p class="text-gray-600 mb-8">Fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <form method="POST" class="space-y-6">
+                        {{ form.hidden_tag() }}
+                        
+                        <!-- Name Field -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.name.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.name(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter your full name") }}
+                            {% if form.name.errors %}
+                                <div class="text-red-500 text-sm mt-1">
+                                    {% for error in form.name.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.email.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.email(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter your email address") }}
+                            {% if form.email.errors %}
+                                <div class="text-red-500 text-sm mt-1">
+                                    {% for error in form.email.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Subject Field -->
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.subject.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.subject(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter the subject") }}
+                            {% if form.subject.errors %}
+                                <div class="text-red-500 text-sm mt-1">
+                                    {% for error in form.subject.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Message Field -->
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                                {{ form.message.label }}
+                                <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.message(class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", rows="5", placeholder="Enter your message here...") }}
+                            {% if form.message.errors %}
+                                <div class="text-red-500 text-sm mt-1">
+                                    {% for error in form.message.errors %}{{ error }}{% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div>
+                            <button type="submit" class="w-full btn-primary text-white py-3 px-6 rounded-lg font-semibold text-lg">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Quick Contact Info -->
+            <div data-aos="fade-left">
+                <div class="space-y-8">
+                    <!-- Plant Locations -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-industry mr-2 text-blue-600"></i>
+                            Our Plants
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">Rajban Plant</h4>
+                                <p class="text-gray-600">Rajban, Himachal Pradesh</p>
+                                <p class="text-sm text-gray-500">Capacity: 6.75 Lakh MT/Annum</p>
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h4 class="font-semibold text-gray-800">Tandur Plant</h4>
+                                <p class="text-gray-600">Tandur, Telangana</p>
+                                <p class="text-sm text-gray-500">Capacity: 10.90 Lakh MT/Annum</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Important Links -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-link mr-2 text-purple-600"></i>
+                            Important Links
+                        </h3>
+                        <div class="space-y-3">
+                            <a href="{{ url_for('tenders') }}" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-file-contract mr-3"></i>
+                                Current Tenders
+                            </a>
+                            <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-chart-line mr-3"></i>
+                                Financial Reports
+                            </a>
+                            <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-briefcase mr-3"></i>
+                                Career Opportunities
+                            </a>
+                            <a href="#" class="flex items-center text-gray-600 hover:text-blue-600 transition-colors">
+                                <i class="fas fa-newspaper mr-3"></i>
+                                Press Releases
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Emergency Contact -->
+                    <div class="bg-gradient-to-r from-red-500 to-pink-500 rounded-lg shadow-lg p-6 text-white">
+                        <h3 class="text-xl font-bold mb-4">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            Emergency Contact
+                        </h3>
+                        <p class="mb-2">For urgent matters and emergencies:</p>
+                        <p class="font-semibold text-lg">
+                            <i class="fas fa-phone mr-2"></i>
+                            +91-11-24360744
+                        </p>
+                        <p class="text-sm opacity-90 mt-2">Available 24/7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Find Us</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Visit our head office or regional offices. We're here to assist you with all your cement-related needs.
+            </p>
+        </div>
+        
+        <div class="bg-gray-200 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up">
+            <div class="h-96 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                <div class="text-center">
+                    <i class="fas fa-map-marked-alt text-6xl text-blue-600 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Interactive Map</h3>
+                    <p class="text-gray-600">Head Office: Core-2, Scope Complex, 7 Institutional Area, Lodi Road, New Delhi - 110003</p>
+                    <button class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-directions mr-2"></i>
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Frequently Asked Questions</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Find answers to common questions about our services, products, and processes.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="space-y-6" data-aos="fade-right">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-question-circle mr-2 text-blue-600"></i>
+                        How can I get a quote for cement?
+                    </h3>
+                    <p class="text-gray-600">
+                        You can request a quote by filling out our contact form above or calling our sales team directly at +91-11-24360744.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-question-circle mr-2 text-blue-600"></i>
+                        What are your payment terms?
+                    </h3>
+                    <p class="text-gray-600">
+                        We offer flexible payment terms based on order quantity and customer requirements. Please contact our sales team for details.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="space-y-6" data-aos="fade-left">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-question-circle mr-2 text-blue-600"></i>
+                        Do you provide technical support?
+                    </h3>
+                    <p class="text-gray-600">
+                        Yes, we provide comprehensive technical support for all our cement products. Our technical team is available to assist with specifications and applications.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">
+                        <i class="fas fa-question-circle mr-2 text-blue-600"></i>
+                        How can I track my tender application?
+                    </h3>
+                    <p class="text-gray-600">
+                        You can track your tender application status by contacting our tender department at tender@cciltd.in or through our tender portal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Form validation enhancement
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const inputs = form.querySelectorAll('input, textarea');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim() === '') {
+                    this.classList.add('border-red-500');
+                    this.classList.remove('border-gray-300');
+                } else {
+                    this.classList.remove('border-red-500');
+                    this.classList.add('border-gray-300');
+                }
+            });
+        });
+        
+        // Character counter for message field
+        const messageField = document.querySelector('textarea[name="message"]');
+        if (messageField) {
+            const maxLength = 1000;
+            const counter = document.createElement('div');
+            counter.className = 'text-sm text-gray-500 mt-1';
+            counter.textContent = `0/${maxLength} characters`;
+            messageField.parentNode.appendChild(counter);
+            
+            messageField.addEventListener('input', function() {
+                const currentLength = this.value.length;
+                counter.textContent = `${currentLength}/${maxLength} characters`;
+                
+                if (currentLength > maxLength * 0.9) {
+                    counter.classList.add('text-red-500');
+                } else {
+                    counter.classList.remove('text-red-500');
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

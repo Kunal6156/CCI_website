@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+
+{% block title %}Tenders - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 cement-gradient hero-pattern">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6" data-aos="fade-up">Tender Section</h1>
+        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            Welcome to Cement Corporation of India's Tender section. Kindly choose any Category to view various tenders
+            under it.
+        </p>
+    </div>
+
+    <div class="flex justify-center space-x-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="bg-white bg-opacity-20 px-6 py-3 rounded-lg">
+            <span class="font-semibold">Total Active Tenders: <span id="tender-count">{{ tenders|length
+                    }}</span></span>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+
+<!-- Tender Categories and Filters -->
+<section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Tender Categories</h2>
+
+            <!-- Category Links -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('all')">
+                    <h3 class="font-semibold text-blue-800 mb-2">
+                        <i class="fas fa-list mr-2"></i>All Tenders
+                    </h3>
+                    <p class="text-sm text-blue-600">View all available tenders</p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg border border-green-200 hover:bg-green-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('open')">
+                    <h3 class="font-semibold text-green-800 mb-2">
+                        <i class="fas fa-folder-open mr-2"></i>Open Tenders
+                    </h3>
+                    <p class="text-sm text-green-600">Currently accepting bids</p>
+                </div>
+
+                <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 hover:bg-orange-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('archive')">
+                    <h3 class="font-semibold text-orange-800 mb-2">
+                        <i class="fas fa-archive mr-2"></i>Tender Archive
+                    </h3>
+                    <p class="text-sm text-orange-600">Past tender records</p>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 hover:bg-purple-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('terms')">
+                    <h3 class="font-semibold text-purple-800 mb-2">
+                        <i class="fas fa-file-contract mr-2"></i>General Terms & Conditions
+                    </h3>
+                    <p class="text-sm text-purple-600">Standard tender conditions</p>
+                </div>
+
+                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200 hover:bg-indigo-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('tracking')">
+                    <h3 class="font-semibold text-indigo-800 mb-2">
+                        <i class="fas fa-search mr-2"></i>Vendor Bill Tracking
+                    </h3>
+                    <p class="text-sm text-indigo-600">Track your submissions</p>
+                </div>
+
+                <div class="bg-red-50 p-4 rounded-lg border border-red-200 hover:bg-red-100 transition-colors cursor-pointer"
+                    onclick="filterTenders('corrigendum')">
+                    <h3 class="font-semibold text-red-800 mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Corrigendum
+                    </h3>
+                    <p class="text-sm text-red-600">Important updates & corrections</p>
+                </div>
+            </div>
+
+            <!-- Search and Filter Controls -->
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+                <div class="flex-1">
+                    <input type="text" id="tender-search"
+                        placeholder="Search tenders by title, tender number, or location..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex gap-2">
+                    <select id="status-filter"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Status</option>
+                        <option value="Open">Open</option>
+                        <option value="Closed">Closed</option>
+                        <option value="Awarded">Awarded</option>
+                    </select>
+                    <button onclick="clearFilters()"
+                        class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        Clear Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tender Listings -->
+<section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up">
+            <div class="bg-blue-600 text-white p-6">
+                <h2 class="text-2xl font-bold mb-2">Active Tenders</h2>
+                <p class="text-blue-100">Click on any tender to view detailed information</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                S.No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tender Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tender No.</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Closing Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Est. Cost</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Location</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tender-table-body" class="bg-white divide-y divide-gray-200">
+                        {% for tender in tenders %}
+                        <tr class="tender-row hover:bg-gray-50 transition-colors cursor-pointer"
+                            data-tender-id="{{ tender.id }}" data-status="{{ tender.status }}"
+                            data-location="{{ tender.location }}" onclick="showTenderDetails({{ tender.id }})">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ loop.index }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-900">
+                                <div class="font-medium">{{ tender.title }}</div>
+                                <div class="text-gray-500 text-xs">{{ tender.description[:100] }}...</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-blue-600">{{ tender.tender_no
+                                }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ tender.closing_date.strftime('%d-%m-%Y') }}
+                                <div class="text-xs text-gray-500">{{ tender.closing_date.strftime('%I:%M %p') }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                ₹{{ "{:,.2f}".format(tender.estimated_cost) }} Lakh
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ tender.location }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                                    {% if tender.status == 'Open' %}bg-green-100 text-green-800
+                                    {% elif tender.status == 'Closed' %}bg-red-100 text-red-800
+                                    {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                    {{ tender.status }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <button onclick="event.stopPropagation(); downloadTender({{ tender.id }})"
+                                    class="text-blue-600 hover:text-blue-900 mr-3">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); showTenderDetails({{ tender.id }})"
+                                    class="text-green-600 hover:text-green-900">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- e-Tender Helpdesk -->
+<section class="py-12 bg-blue-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow-lg p-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">e-Tender Helpdesk</h2>
+            <p class="text-gray-600 mb-6">For Tender's related issues please contact:</p>
+
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="border border-gray-300 px-4 py-2 text-left">S.No</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">Unit</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">Mobile No.</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">Land Line No.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">1</td>
+                            <td class="border border-gray-300 px-4 py-2">Rajban</td>
+                            <td class="border border-gray-300 px-4 py-2">Sureshkumar Kiran</td>
+                            <td class="border border-gray-300 px-4 py-2">9039098173</td>
+                            <td class="border border-gray-300 px-4 py-2">01976-246369</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">2</td>
+                            <td class="border border-gray-300 px-4 py-2">Rajban</td>
+                            <td class="border border-gray-300 px-4 py-2">Chandu Sharma</td>
+                            <td class="border border-gray-300 px-4 py-2">7827089566</td>
+                            <td class="border border-gray-300 px-4 py-2">-</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">3</td>
+                            <td class="border border-gray-300 px-4 py-2">Tandur</td>
+                            <td class="border border-gray-300 px-4 py-2">Shahnawaz Alam</td>
+                            <td class="border border-gray-300 px-4 py-2">7799938174</td>
+                            <td class="border border-gray-300 px-4 py-2">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-6 p-4 bg-blue-100 rounded-lg">
+                <h3 class="font-semibold text-blue-800 mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>Independent External Monitor (IEM)
+                </h3>
+                <p class="text-blue-700 text-sm">
+                    <strong>Notice:</strong> All interested vendors are informed that there will be no separate
+                    publishing of
+                    tenders in news papers.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tender Details Modal -->
+<div id="tender-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-4xl w-full max-h-90vh overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-800">Tender Details</h2>
+                <button onclick="closeTenderModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="tender-modal-content" class="p-6">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+
+        <div class="p-6 border-t border-gray-200 bg-gray-50">
+            <div class="flex justify-end space-x-4">
+                <button onclick="closeTenderModal()"
+                    class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600">
+                    Close
+                </button>
+                <button onclick="downloadCurrentTender()"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-download mr-2"></i>Download
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let currentTenderId = null;
+
+    // Convert tender data to JSON-serializable format
+    let allTenders = [
+        {% for tender in tenders %}
+    {
+        id: { { tender.id } },
+        title: "{{ tender.title|escape }}",
+            description: "{{ tender.description|escape }}",
+                tender_no: "{{ tender.tender_no }}",
+                    opening_date: "{{ tender.opening_date.isoformat() }}",
+                        closing_date: "{{ tender.closing_date.isoformat() }}",
+                            estimated_cost: { { tender.estimated_cost } },
+        location: "{{ tender.location }}",
+            status: "{{ tender.status }}"
+    } {% if not loop.last %}, {% endif %}
+    {% endfor %}
+    ];
+
+    // Filter tenders by category
+    function filterTenders(category) {
+        const rows = document.querySelectorAll('.tender-row');
+        rows.forEach(row => {
+            switch (category) {
+                case 'all':
+                    row.style.display = '';
+                    break;
+                case 'open':
+                    row.style.display = row.dataset.status === 'Open' ? '' : 'none';
+                    break;
+                case 'archive':
+                    row.style.display = row.dataset.status === 'Closed' ? '' : 'none';
+                    break;
+                default:
+                    row.style.display = '';
+            }
+        });
+        updateTenderCount();
+    }
+
+    // Search functionality
+    document.getElementById('tender-search').addEventListener('input', function (e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('.tender-row');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+        updateTenderCount();
+    });
+
+    // Status filter
+    document.getElementById('status-filter').addEventListener('change', function (e) {
+        const status = e.target.value;
+        const rows = document.querySelectorAll('.tender-row');
+
+        rows.forEach(row => {
+            if (!status || row.dataset.status === status) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+        updateTenderCount();
+    });
+
+    // Clear filters
+    function clearFilters() {
+        document.getElementById('tender-search').value = '';
+        document.getElementById('status-filter').value = '';
+        document.querySelectorAll('.tender-row').forEach(row => {
+            row.style.display = '';
+        });
+        updateTenderCount();
+    }
+
+    // Update tender count
+    function updateTenderCount() {
+        const visibleRows = document.querySelectorAll('.tender-row:not([style*="display: none"])');
+        document.getElementById('tender-count').textContent = visibleRows.length;
+    }
+
+    // Show tender details
+    function showTenderDetails(tenderId) {
+        currentTenderId = tenderId;
+        const tender = allTenders.find(t => t.id === tenderId);
+
+        if (!tender) return;
+
+        const modalContent = document.getElementById('tender-modal-content');
+        const openingDate = new Date(tender.opening_date);
+        const closingDate = new Date(tender.closing_date);
+
+        modalContent.innerHTML = `
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Tender Information</h3>
+                        <div class="space-y-2">
+                            <p><strong>Title:</strong> ${tender.title}</p>
+                            <p><strong>Tender No:</strong> ${tender.tender_no}</p>
+                            <p><strong>Status:</strong> 
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                                    ${tender.status === 'Open' ? 'bg-green-100 text-green-800' :
+                tender.status === 'Closed' ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'}">
+                                    ${tender.status}
+                                </span>
+                            </p>
+                            <p><strong>Location:</strong> ${tender.location}</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Important Dates</h3>
+                        <div class="space-y-2">
+                            <p><strong>Opening Date:</strong> ${openingDate.toLocaleDateString()}</p>
+                            <p><strong>Closing Date:</strong> ${closingDate.toLocaleDateString()}</p>
+                            <p><strong>Estimated Cost:</strong> ₹${tender.estimated_cost.toLocaleString()} Lakh</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Description</h3>
+                    <p class="text-gray-600">${tender.description}</p>
+                </div>
+                
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-yellow-800 mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Important Notes
+                    </h4>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li>• Please read all terms and conditions carefully before bidding</li>
+                        <li>• Ensure all required documents are submitted before the deadline</li>
+                        <li>• Contact the helpdesk for any technical issues</li>
+                        <li>• Late submissions will not be accepted</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('tender-modal').classList.remove('hidden');
+    }
+
+    // Close tender modal
+    function closeTenderModal() {
+        document.getElementById('tender-modal').classList.add('hidden');
+        currentTenderId = null;
+    }
+
+    // Download tender
+    function downloadTender(tenderId) {
+        alert(`Downloading tender documents for Tender ID: ${tenderId}`);
+        // Implement actual download functionality here
+    }
+
+    // Download current tender
+    function downloadCurrentTender() {
+        if (currentTenderId) {
+            downloadTender(currentTenderId);
+        }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('tender-modal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeTenderModal();
+        }
+    });
+
+    // Initialize tender count
+    updateTenderCount();
+</script>
+{% endblock %}

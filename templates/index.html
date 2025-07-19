@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center cement-gradient hero-pattern overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="relative z-10 text-center text-white px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 slide-in-left">
+                Building India's
+                <span class="text-gradient block">Foundation</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 slide-in-right opacity-90">
+                Cement Corporation of India - Your trusted partner in quality cement production since 1965
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="300">
+                <a href="{{ url_for('about') }}" class="btn-primary px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 transition-transform">
+                    Learn More
+                </a>
+                <a href="{{ url_for('contact') }}" class="glass-morphism px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all">
+                    Get In Touch
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="absolute top-1/4 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full floating-animation"></div>
+    <div class="absolute bottom-1/4 right-10 w-16 h-16 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 right-1/4 w-12 h-12 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: 2s;"></div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8" data-aos="fade-up">
+            <div class="text-center">
+                <div class="stats-counter" data-count="59">0</div>
+                <p class="text-gray-600 font-medium">Years of Excellence</p>
+            </div>
+            <div class="text-center">
+                <div class="stats-counter" data-count="17.65">0</div>
+                <p class="text-gray-600 font-medium">Million Tonnes Capacity</p>
+            </div>
+            <div class="text-center">
+                <div class="stats-counter" data-count="3">0</div>
+                <p class="text-gray-600 font-medium">Manufacturing Plants</p>
+            </div>
+            <div class="text-center">
+                <div class="stats-counter" data-count="1000">0</div>
+                <p class="text-gray-600 font-medium">+ Employees</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6">
+                    About <span class="text-gradient">CCI</span>
+                </h2>
+                <p class="text-lg text-gray-700 mb-6">
+                    Cement Corporation of India Limited (CCI) is a Government of India Enterprise under the Ministry of Steel, 
+                    established in 1965. We are one of India's leading cement manufacturers, committed to delivering high-quality 
+                    cement products while maintaining environmental sustainability.
+                </p>
+                <p class="text-lg text-gray-700 mb-8">
+                    With our state-of-the-art manufacturing facilities and decades of expertise, we have contributed significantly 
+                    to India's infrastructure development and continue to be a trusted partner in the nation's growth story.
+                </p>
+                <a href="{{ url_for('about') }}" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+                    Read More <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            <div data-aos="fade-left">
+                <div class="relative">
+                    <div class="bg-blue-600 rounded-lg p-8 text-white">
+                        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+                        <p class="text-lg opacity-90">
+                            To be a leading cement manufacturer in India, providing high-quality products while 
+                            contributing to sustainable development and national infrastructure growth.
+                        </p>
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 w-full h-full bg-blue-200 rounded-lg -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News & Updates Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Latest News & Updates</h2>
+            <p class="text-xl text-gray-600">Stay informed about our recent developments and achievements</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for news in news_updates %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-blue-600 font-medium">{{ news.date_posted.strftime('%B %d, %Y') }}</span>
+                        <span class="text-sm text-gray-500">{{ news.author }}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ news.title }}</h3>
+                    <p class="text-gray-600 mb-4">
+                        {{ news.content[:150] }}{% if news.content|length > 150 %}...{% endif %}
+                    </p>
+                    <a href="#" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center">
+                        Read More <i class="fas fa-arrow-right ml-1 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="#" class="btn-primary px-8 py-3 rounded-lg font-semibold inline-flex items-center">
+                View All News <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Our Plants Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Manufacturing Plants</h2>
+            <p class="text-xl text-gray-600">Strategic locations across India for optimal distribution</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up">
+                <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-industry text-white text-6xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Rajban Plant</h3>
+                    <p class="text-gray-600 mb-2">Himachal Pradesh</p>
+                    <p class="text-blue-600 font-semibold">Capacity: 6.75 Million Tonnes</p>
+                    <p class="text-sm text-gray-500 mt-2">Established: 1979</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-48 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
+                    <i class="fas fa-industry text-white text-6xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Tandur Plant</h3>
+                    <p class="text-gray-600 mb-2">Telangana</p>
+                    <p class="text-blue-600 font-semibold">Capacity: 10.90 Million Tonnes</p>
+                    <p class="text-sm text-gray-500 mt-2">Established: 1980</p>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-48 bg-gradient-to-r from-purple-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-industry text-white text-6xl"></i>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Akaltara Plant</h3>
+                    <p class="text-gray-600 mb-2">Chhattisgarh</p>
+                    <p class="text-blue-600 font-semibold">Under Development</p>
+                    <p class="text-sm text-gray-500 mt-2">Future Expansion</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12" data-aos="fade-up">
+            <a href="{{ url_for('plants') }}" class="btn-primary px-8 py-3 rounded-lg font-semibold inline-flex items-center">
+                View All Plants <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Tenders Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Current Tenders</h2>
+            <p class="text-xl text-gray-600">Explore business opportunities with CCI</p>
+        </div>
+        
+        <div class="bg-gray-50 rounded-lg p-8" data-aos="fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Open Tenders</h3>
+                    <p class="text-gray-600 mb-6">
+                        Stay updated with our latest tender notifications and business opportunities. 
+                        We regularly invite bids for various requirements across our operations.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500"></i>
+                            <span class="text-gray-700">Raw Material Supply</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500"></i>
+                            <span class="text-gray-700">Equipment & Machinery</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500"></i>
+                            <span class="text-gray-700">Construction Services</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500"></i>
+                            <span class="text-gray-700">Maintenance Contracts</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h4 class="text-xl font-bold text-gray-900 mb-4">Quick Stats</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Active Tenders</span>
+                            <span class="font-semibold text-blue-600">5</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Total Value</span>
+                            <span class="font-semibold text-blue-600">₹50+ Crores</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Closing Soon</span>
+                            <span class="font-semibold text-red-600">2</span>
+                        </div>
+                    </div>
+                    <a href="{{ url_for('tenders') }}" class="btn-primary w-full mt-6 py-3 rounded-lg font-semibold text-center block">
+                        View All Tenders
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 cement-gradient">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-3xl mx-auto" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-white mb-6">Ready to Partner With Us?</h2>
+            <p class="text-xl text-white opacity-90 mb-8">
+                Join hands with India's leading cement manufacturer and be part of our success story.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{{ url_for('contact') }}" class="glass-morphism px-8 py-4 rounded-lg font-semibold text-white hover:bg-white hover:text-blue-600 transition-all">
+                    Contact Us
+                </a>
+                <a href="{{ url_for('tenders') }}" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all">
+                    View Tenders
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Counter Animation
+function animateCounters() {
+    const counters = document.querySelectorAll('.stats-counter');
+    counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const step = target / (duration / 16); // 60 FPS
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        updateCounter();
+    });
+}
+
+// Trigger counter animation when section comes into view
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            observer.disconnect(); // Run only once
+        }
+    });
+});
+
+const statsSection = document.querySelector('.stats-counter').closest('section');
+if (statsSection) {
+    observer.observe(statsSection);
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

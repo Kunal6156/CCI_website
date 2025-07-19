@@ -1,0 +1,361 @@
+{% extends "base.html" %}
+
+{% block title %}Board of Directors | CCI{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative py-20 cement-gradient hero-pattern">
+    <div class="absolute inset-0 bg-black opacity-20"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 floating-animation" data-aos="fade-up">Board of Directors</h1>
+        <p class="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+            Experienced leaders driving CCI's strategic vision and growth
+        </p>
+    </div>
+</section>
+
+<!-- Board Introduction -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Leadership Excellence</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our Board of Directors comprises distinguished professionals with extensive experience 
+                in the cement industry, public administration, and strategic management. Their collective 
+                expertise guides CCI's journey towards continued excellence and sustainable growth.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-blue-50 rounded-lg p-8 text-center hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up">
+                <i class="fas fa-users text-blue-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Diverse Expertise</h3>
+                <p class="text-gray-600">
+                    Our board brings together professionals from various backgrounds including 
+                    engineering, finance, public administration, and industry management.
+                </p>
+            </div>
+            
+            <div class="bg-green-50 rounded-lg p-8 text-center hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-chart-line text-green-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Strategic Vision</h3>
+                <p class="text-gray-600">
+                    Focused on long-term strategic planning and sustainable growth while 
+                    maintaining CCI's position as a leading cement manufacturer.
+                </p>
+            </div>
+            
+            <div class="bg-purple-50 rounded-lg p-8 text-center hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-handshake text-purple-600 text-4xl mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Stakeholder Focus</h3>
+                <p class="text-gray-600">
+                    Committed to creating value for all stakeholders while ensuring 
+                    transparency and accountability in all business operations.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Board Members -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
+            <p class="text-xl text-gray-600">Meet the distinguished professionals leading CCI</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Board Member 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up">
+                <div class="w-full h-64 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-blue-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Shri. Rajesh Kumar</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Chairman & Managing Director</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">B.Tech (Civil), MBA (Finance), IAS</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">Over 30 years in public administration and industrial management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Board Member 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-full h-64 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-green-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Smt. Priya Sharma</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Director (Finance)</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">CA, CFA, MBA (Finance)</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">25+ years in financial management and corporate finance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Board Member 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-full h-64 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-purple-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Shri. Amit Verma</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Director (Technical)</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">B.Tech (Chemical), M.Tech (Materials)</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">28 years in cement technology and production management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Board Member 4 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-full h-64 bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-red-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Smt. Deepa Gupta</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Director (Marketing)</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">MBA (Marketing), B.Com</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">22 years in marketing and brand management</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Board Member 5 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-full h-64 bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-yellow-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Shri. Suresh Rao</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Director (Human Resources)</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">MBA (HR), PGDM, M.A. (Psychology)</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">26 years in human resource management and organizational development</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Board Member 6 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="500">
+                <div class="w-full h-64 bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center">
+                    <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-user text-indigo-600 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Dr. Kavita Singh</h3>
+                    <p class="text-blue-600 font-semibold mb-4">Independent Director</p>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Qualifications</h4>
+                        <p class="text-gray-600 text-sm">Ph.D. (Economics), M.A. (Economics)</p>
+                    </div>
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-1">Experience</h4>
+                        <p class="text-gray-600 text-sm">20 years in economic research and policy analysis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Leadership Philosophy -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Leadership Philosophy</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our leadership philosophy is built on the pillars of integrity, innovation, and inclusive growth
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-lightbulb text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Innovation-Driven</h3>
+                            <p class="text-gray-600">Embracing cutting-edge technologies and sustainable practices to stay ahead in the cement industry.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-leaf text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Sustainable Growth</h3>
+                            <p class="text-gray-600">Committed to environmental responsibility and sustainable manufacturing processes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-people-carry text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">People-Centric</h3>
+                            <p class="text-gray-600">Focusing on employee development, safety, and community welfare as core priorities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left">
+                <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Commitment</h3>
+                    <p class="text-gray-600 mb-6">
+                        "At CCI, we believe that strong leadership is the foundation of sustainable success. 
+                        Our board is committed to creating value for all stakeholders while maintaining the 
+                        highest standards of corporate governance and ethical practices."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-quote-left text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="font-semibold text-gray-900">Board of Directors</p>
+                            <p class="text-sm text-gray-600">Cement Corporation of India</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Board Achievements -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Board Achievements</h2>
+            <p class="text-xl text-gray-600">Key milestones achieved under our leadership</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-lg p-6 text-center shadow-lg hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up">
+                <div class="text-3xl font-bold text-blue-600 mb-2 counter" data-target="150">0</div>
+                <p class="text-gray-600">Years of Combined Experience</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center shadow-lg hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-3xl font-bold text-green-600 mb-2 counter" data-target="98">0</div>
+                <p class="text-gray-600">Board Meeting Attendance %</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center shadow-lg hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-3xl font-bold text-purple-600 mb-2 counter" data-target="25">0</div>
+                <p class="text-gray-600">Strategic Initiatives</p>
+            </div>
+            
+            <div class="bg-white rounded-lg p-6 text-center shadow-lg hover:transform hover:scale-105 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-3xl font-bold text-red-600 mb-2 counter" data-target="100">0</div>
+                <p class="text-gray-600">Governance Compliance %</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .counter {
+        transition: all 0.3s ease;
+    }
+    
+    .hover\:transform:hover {
+        transform: translateY(-5px);
+    }
+    
+    .hover\:scale-105:hover {
+        transform: scale(1.05);
+    }
+</style>
+
+<script>
+    // Counter animation
+    function animateCounters() {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const count = +counter.innerText;
+            
+            const increment = target / 100;
+            
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => animateCounters(), 20);
+            } else {
+                counter.innerText = target;
+            }
+        });
+    }
+    
+    // Intersection Observer for counter animation
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe the achievements section
+    const achievementsSection = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-4');
+    if (achievementsSection) {
+        observer.observe(achievementsSection);
+    }
+    
+    // Initialize AOS if available
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            easing: 'ease-in-out',
+            once: true
+        });
+    }
+</script>
+{% endblock %}

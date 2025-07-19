@@ -1,0 +1,461 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Registration Section -->
+<section class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Logo and Header -->
+        <div class="text-center" data-aos="fade-up">
+            <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-white font-bold text-2xl">CCI</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+            <p class="text-gray-600">Join the CCI community</p>
+            <div class="mt-2">
+                <span class="text-sm text-gray-500">Cement Corporation of India Limited</span>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="bg-white rounded-xl shadow-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <form method="POST" class="space-y-6" id="registerForm">
+                {{ form.hidden_tag() }}
+                
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.username.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        {{ form.username(class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Choose a username") }}
+                    </div>
+                    {% if form.username.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.username.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.email.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        {{ form.email(class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter your email") }}
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.email.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.password.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        {{ form.password(class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Create a password") }}
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <button type="button" id="togglePassword" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% if form.password.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.password.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                    <!-- Password strength indicator -->
+                    <div class="mt-2">
+                        <div class="text-xs text-gray-500">Password strength:</div>
+                        <div class="flex space-x-1 mt-1">
+                            <div class="h-2 w-full bg-gray-200 rounded-full">
+                                <div id="passwordStrength" class="h-2 bg-red-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div id="passwordStrengthText" class="text-xs text-gray-500 mt-1">Enter a password</div>
+                    </div>
+                </div>
+                
+                <!-- Confirm Password Field -->
+                <div>
+                    <label for="confirm_password" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.confirm_password.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        {{ form.confirm_password(class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Confirm your password") }}
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <button type="button" id="toggleConfirmPassword" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                <i class="fas fa-eye" id="eyeConfirmIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% if form.confirm_password.errors %}
+                        <div class="text-red-500 text-sm mt-1">
+                            {% for error in form.confirm_password.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                    <!-- Password match indicator -->
+                    <div id="passwordMatchIndicator" class="mt-2 text-xs hidden">
+                        <span id="passwordMatchText" class="flex items-center">
+                            <i id="passwordMatchIcon" class="mr-1"></i>
+                            <span id="passwordMatchMessage"></span>
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Terms and Conditions -->
+                <div class="flex items-center">
+                    <input type="checkbox" id="termsCheck" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="termsCheck" class="ml-2 block text-sm text-gray-900">
+                        I agree to the <a href="#" class="text-blue-600 hover:text-blue-500 underline">Terms and Conditions</a>
+                    </label>
+                </div>
+                
+                <!-- Register Button -->
+                <div>
+                    <button type="submit" id="registerButton" class="w-full btn-primary text-white py-3 px-4 rounded-lg font-semibold text-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        <span id="registerButtonText">Create Account</span>
+                    </button>
+                </div>
+                
+                <!-- Login Link -->
+                <div class="text-center">
+                    <p class="text-sm text-gray-600">
+                        Already have an account? 
+                        <a href="{{ url_for('login') }}" class="text-blue-600 hover:text-blue-500 transition-colors font-medium">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
+                
+                <!-- Security Notice -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-info-circle text-blue-600 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="text-sm font-medium text-blue-800">Account Information</h3>
+                            <p class="text-sm text-blue-700 mt-1">
+                                Your account will be created as a regular user. Admin access requires separate approval.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Additional Information -->
+        <div class="text-center space-y-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-shield-alt mr-2 text-green-600"></i>
+                    Account Benefits
+                </h3>
+                <div class="space-y-2 text-sm text-gray-600">
+                    <p><strong>Tender Access:</strong> View and track tender updates</p>
+                    <p><strong>News Updates:</strong> Get latest CCI news and announcements</p>
+                    <p><strong>Dashboard:</strong> Personal dashboard for easy navigation</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <i class="fas fa-phone mr-2 text-green-600"></i>
+                        Technical Support
+                    </h4>
+                    <p class="text-sm text-gray-600">+91-11-24360744</p>
+                    <p class="text-xs text-gray-500">Mon-Fri: 9:00 AM - 6:00 PM</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <i class="fas fa-envelope mr-2 text-blue-600"></i>
+                        Email Support
+                    </h4>
+                    <p class="text-sm text-gray-600">it-support@cciltd.in</p>
+                    <p class="text-xs text-gray-500">24-48 hours response</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Links -->
+        <div class="text-center text-sm text-gray-500 space-y-2">
+            <div class="flex justify-center space-x-4">
+                <a href="{{ url_for('index') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-home mr-1"></i>Home
+                </a>
+                <a href="{{ url_for('about') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-info-circle mr-1"></i>About
+                </a>
+                <a href="{{ url_for('contact') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-envelope mr-1"></i>Contact
+                </a>
+            </div>
+            <p>© 2024 Cement Corporation of India Limited. All rights reserved.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Password toggle functionality
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    });
+    
+    // Confirm password toggle functionality
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+        const confirmPasswordField = document.getElementById('confirm_password');
+        const eyeConfirmIcon = document.getElementById('eyeConfirmIcon');
+        
+        if (confirmPasswordField.type === 'password') {
+            confirmPasswordField.type = 'text';
+            eyeConfirmIcon.classList.remove('fa-eye');
+            eyeConfirmIcon.classList.add('fa-eye-slash');
+        } else {
+            confirmPasswordField.type = 'password';
+            eyeConfirmIcon.classList.remove('fa-eye-slash');
+            eyeConfirmIcon.classList.add('fa-eye');
+        }
+    });
+    
+    // Password strength checker
+    function checkPasswordStrength(password) {
+        let strength = 0;
+        let feedback = [];
+        
+        if (password.length >= 8) strength += 1;
+        else feedback.push('At least 8 characters');
+        
+        if (password.match(/[a-z]/)) strength += 1;
+        else feedback.push('Lowercase letter');
+        
+        if (password.match(/[A-Z]/)) strength += 1;
+        else feedback.push('Uppercase letter');
+        
+        if (password.match(/[0-9]/)) strength += 1;
+        else feedback.push('Number');
+        
+        if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+        else feedback.push('Special character');
+        
+        return { strength, feedback };
+    }
+    
+    // Password strength indicator
+    document.getElementById('password').addEventListener('input', function() {
+        const password = this.value;
+        const { strength, feedback } = checkPasswordStrength(password);
+        const strengthBar = document.getElementById('passwordStrength');
+        const strengthText = document.getElementById('passwordStrengthText');
+        
+        const percentage = (strength / 5) * 100;
+        strengthBar.style.width = percentage + '%';
+        
+        let color = 'bg-red-500';
+        let text = 'Very Weak';
+        
+        if (strength >= 4) {
+            color = 'bg-green-500';
+            text = 'Strong';
+        } else if (strength >= 3) {
+            color = 'bg-yellow-500';
+            text = 'Good';
+        } else if (strength >= 2) {
+            color = 'bg-orange-500';
+            text = 'Fair';
+        } else if (strength >= 1) {
+            color = 'bg-red-400';
+            text = 'Weak';
+        }
+        
+        strengthBar.className = `h-2 ${color} rounded-full transition-all duration-300`;
+        
+        if (password.length > 0) {
+            strengthText.textContent = `${text}${feedback.length > 0 ? ' - Missing: ' + feedback.join(', ') : ''}`;
+        } else {
+            strengthText.textContent = 'Enter a password';
+        }
+    });
+    
+    // Password match checker
+    function checkPasswordMatch() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+        const indicator = document.getElementById('passwordMatchIndicator');
+        const icon = document.getElementById('passwordMatchIcon');
+        const message = document.getElementById('passwordMatchMessage');
+        
+        if (confirmPassword.length > 0) {
+            indicator.classList.remove('hidden');
+            
+            if (password === confirmPassword) {
+                icon.className = 'fas fa-check-circle text-green-500 mr-1';
+                message.textContent = 'Passwords match';
+                message.className = 'text-green-600';
+            } else {
+                icon.className = 'fas fa-times-circle text-red-500 mr-1';
+                message.textContent = 'Passwords do not match';
+                message.className = 'text-red-600';
+            }
+        } else {
+            indicator.classList.add('hidden');
+        }
+    }
+    
+    document.getElementById('confirm_password').addEventListener('input', checkPasswordMatch);
+    document.getElementById('password').addEventListener('input', checkPasswordMatch);
+    
+    // Form validation
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+        const termsCheck = document.getElementById('termsCheck').checked;
+        const registerButton = document.getElementById('registerButton');
+        const registerButtonText = document.getElementById('registerButtonText');
+        
+        let isValid = true;
+        let errorMessage = '';
+        
+        // Check if all fields are filled
+        if (!username || !email || !password || !confirmPassword) {
+            isValid = false;
+            errorMessage = 'Please fill in all required fields.';
+        }
+        
+        // Check username length
+        if (username.length < 4) {
+            isValid = false;
+            errorMessage = 'Username must be at least 4 characters long.';
+        }
+        
+        // Check email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            isValid = false;
+            errorMessage = 'Please enter a valid email address.';
+        }
+        
+        // Check password strength
+        const { strength } = checkPasswordStrength(password);
+        if (strength < 2) {
+            isValid = false;
+            errorMessage = 'Password is too weak. Please create a stronger password.';
+        }
+        
+        // Check password match
+        if (password !== confirmPassword) {
+            isValid = false;
+            errorMessage = 'Passwords do not match.';
+        }
+        
+        // Check terms agreement
+        if (!termsCheck) {
+            isValid = false;
+            errorMessage = 'Please agree to the Terms and Conditions.';
+        }
+        
+        if (!isValid) {
+            e.preventDefault();
+            alert(errorMessage);
+            return false;
+        }
+        
+        // Show loading state
+        registerButton.disabled = true;
+        registerButtonText.innerHTML = '<div class="loading-spinner inline-block mr-2"></div>Creating Account...';
+        
+        // Enable button after 10 seconds if form doesn't submit (fallback)
+        setTimeout(() => {
+            registerButton.disabled = false;
+            registerButtonText.innerHTML = 'Create Account';
+        }, 10000);
+    });
+    
+    // Real-time validation feedback
+    document.getElementById('username').addEventListener('blur', function() {
+        const username = this.value;
+        if (username.length > 0 && username.length < 4) {
+            this.classList.add('border-red-500');
+            this.classList.remove('border-gray-300');
+        } else {
+            this.classList.remove('border-red-500');
+            this.classList.add('border-gray-300');
+        }
+    });
+    
+    document.getElementById('email').addEventListener('blur', function() {
+        const email = this.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email.length > 0 && !emailRegex.test(email)) {
+            this.classList.add('border-red-500');
+            this.classList.remove('border-gray-300');
+        } else {
+            this.classList.remove('border-red-500');
+            this.classList.add('border-gray-300');
+        }
+    });
+    
+    // Username availability check (simulated)
+    let usernameCheckTimeout;
+    document.getElementById('username').addEventListener('input', function() {
+        const username = this.value;
+        
+        if (usernameCheckTimeout) {
+            clearTimeout(usernameCheckTimeout);
+        }
+        
+        if (username.length >= 4) {
+            usernameCheckTimeout = setTimeout(() => {
+                // Simulate username availability check
+                // In real implementation, this would be an AJAX call
+                console.log('Checking username availability for:', username);
+            }, 1000);
+        }
+    });
+    
+    // Terms and conditions modal (basic implementation)
+    document.querySelector('a[href="#"]:contains("Terms and Conditions")').addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Terms and Conditions:\n\n1. Users must provide accurate information\n2. Account security is user responsibility\n3. Unauthorized access is prohibited\n4. CCI reserves the right to terminate accounts\n5. Users must comply with all applicable laws');
+    });
+</script>
+{% endblock %}

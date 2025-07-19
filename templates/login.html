@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Cement Corporation of India Limited{% endblock %}
+
+{% block content %}
+<!-- Login Section -->
+<section
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <!-- Logo and Header -->
+        <div class="text-center" data-aos="fade-up">
+            <div class="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-white font-bold text-2xl">CCI</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+            <p class="text-gray-600">Sign in to your CCI account</p>
+            <div class="mt-2">
+                <span class="text-sm text-gray-500">Cement Corporation of India Limited</span>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="bg-white rounded-xl shadow-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+            <form method="POST" class="space-y-6" id="loginForm">
+                {{ form.hidden_tag() }}
+                <p class="text-center mt-3">
+                    Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+                </p>
+
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.username.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        {{ form.username(class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2
+                        focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter your
+                        username") }}
+                    </div>
+                    {% if form.username.errors %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {% for error in form.username.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.password.label }}
+                        <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        {{ form.password(class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2
+                        focus:ring-blue-500 focus:border-transparent transition-colors", placeholder="Enter your
+                        password") }}
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <button type="button" id="togglePassword"
+                                class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% if form.password.errors %}
+                    <div class="text-red-500 text-sm mt-1">
+                        {% for error in form.password.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Remember Me and Forgot Password -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="remember"
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                    </div>
+                    <div class="text-sm">
+                        <a href="#" class="text-blue-600 hover:text-blue-500 transition-colors">Forgot password?</a>
+                    </div>
+                </div>
+
+                <!-- Login Button -->
+                <div>
+                    <button type="submit"
+                        class="w-full btn-primary text-white py-3 px-4 rounded-lg font-semibold text-lg flex items-center justify-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        <span id="loginButtonText">Sign In</span>
+                    </button>
+                </div>
+
+                <!-- Security Notice -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-shield-alt text-yellow-600 mt-1 mr-3"></i>
+                        <div>
+                            <h3 class="text-sm font-medium text-yellow-800">Security Notice</h3>
+                            <p class="text-sm text-yellow-700 mt-1">
+                                This is a secure government portal. Unauthorized access is prohibited and may be subject
+                                to legal action.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="text-center space-y-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-info-circle mr-2 text-blue-600"></i>
+                    Access Information
+                </h3>
+                <div class="space-y-2 text-sm text-gray-600">
+                    <p><strong>Admin Access:</strong> For administrative functions and content management</p>
+                    <p><strong>Support:</strong> Contact IT support for login issues</p>
+                    <p><strong>Security:</strong> Use strong passwords and log out after use</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <i class="fas fa-phone mr-2 text-green-600"></i>
+                        Technical Support
+                    </h4>
+                    <p class="text-sm text-gray-600">+91-11-24360744</p>
+                    <p class="text-xs text-gray-500">Mon-Fri: 9:00 AM - 6:00 PM</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">
+                        <i class="fas fa-envelope mr-2 text-blue-600"></i>
+                        Email Support
+                    </h4>
+                    <p class="text-sm text-gray-600">it-support@cciltd.in</p>
+                    <p class="text-xs text-gray-500">24-48 hours response</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="text-center text-sm text-gray-500 space-y-2">
+            <div class="flex justify-center space-x-4">
+                <a href="{{ url_for('index') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-home mr-1"></i>Home
+                </a>
+                <a href="{{ url_for('about') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-info-circle mr-1"></i>About
+                </a>
+                <a href="{{ url_for('contact') }}" class="hover:text-blue-600 transition-colors">
+                    <i class="fas fa-envelope mr-1"></i>Contact
+                </a>
+            </div>
+            <p>© 2024 Cement Corporation of India Limited. All rights reserved.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Demo Credentials Modal -->
+<div id="demoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-md w-full mx-4" data-aos="zoom-in">
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-key text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Demo Credentials</h3>
+            <p class="text-gray-600 mt-2">Use these credentials for testing purposes</p>
+        </div>
+
+        <div class="space-y-4">
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h4 class="font-semibold text-gray-800 mb-2">Admin Access</h4>
+                <div class="space-y-1 text-sm">
+                    <p><span class="font-medium">Username:</span> admin</p>
+                    <p><span class="font-medium">Password:</span> admin123</p>
+                </div>
+                <button onclick="fillCredentials('admin', 'admin123')"
+                    class="mt-2 bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700 transition-colors">
+                    Use These Credentials
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-6 text-center">
+            <button onclick="closeDemoModal()" class="text-gray-500 hover:text-gray-700 transition-colors">
+                <i class="fas fa-times mr-2"></i>Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Demo Credentials Button -->
+<button id="demoButton" onclick="showDemoModal()"
+    class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg hover:bg-green-700 transition-colors z-40">
+    <i class="fas fa-key mr-2"></i>Demo Credentials
+</button>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Password toggle functionality
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye');
+        }
+    });
+
+    // Form validation
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (!username || !password) {
+            e.preventDefault();
+            showAlert('Please fill in all required fields', 'error');
+            return;
+        }
+
+        // Show loading state
+        const submitButton = this.querySelector('button[type="submit"]');
+        const buttonText = document.getElementById('loginButtonText');
+
+        submitButton.disabled = true;
+        buttonText.innerHTML = '<div class="loading-spinner inline-block mr-2"></div>Signing In...';
+    });
+
+    // Input validation styling
+    const inputs = document.querySelectorAll('input[type="text"], input[type="password"]');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function () {
+            if (this.value.trim() === '') {
+                this.classList.add('border-red-500');
+                this.classList.remove('border-gray-300');
+            } else {
+                this.classList.remove('border-red-500');
+                this.classList.add('border-gray-300');
+            }
+        });
+
+        input.addEventListener('focus', function () {
+            this.classList.remove('border-red-500');
+            this.classList.add('border-blue-500');
+        });
+    });
+
+    // Demo modal functions
+    function showDemoModal() {
+        document.getElementById('demoModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDemoModal() {
+        document.getElementById('demoModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    function fillCredentials(username, password) {
+        document.getElementById('username').value = username;
+        document.getElementById('password').value = password;
+        closeDemoModal();
+
+        // Add visual feedback
+        const inputs = [document.getElementById('username'), document.getElementById('password')];
+        inputs.forEach(input => {
+            input.classList.add('border-green-500');
+            setTimeout(() => {
+                input.classList.remove('border-green-500');
+                input.classList.add('border-gray-300');
+            }, 2000);
+        });
+    }
+
+    // Alert function
+    function showAlert(message, type) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `fixed top-24 right-4 z-50 px-4 py-3 rounded-lg shadow-lg slide-in-right ${type === 'error' ? 'bg-red-500 text-white' :
+                type === 'success' ? 'bg-green-500 text-white' :
+                    'bg-blue-500 text-white'
+            }`;
+        alertDiv.innerHTML = `
+            <span>${message}</span>
+            <button onclick="this.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+
+        document.body.appendChild(alertDiv);
+
+        setTimeout(() => {
+            alertDiv.remove();
+        }, 5000);
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('demoModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeDemoModal();
+        }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !document.getElementById('demoModal').classList.contains('hidden')) {
+            closeDemoModal();
+        }
+    });
+
+    // Security warning for demo
+    console.log('%c🔒 Security Notice', 'color: red; font-size: 16px; font-weight: bold;');
+    console.log('This is a demo environment. In production, never expose credentials or sensitive information.');
+
+    // Auto-focus on username field
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('username').focus();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cement Corporation of India Limited{% endblock %}</title>
+
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .cement-gradient {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%);
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::before {
+            width: 100%;
+        }
+
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .stats-counter {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            margin: 3rem 0;
+        }
+
+        /* Custom Logo Styles */
+        .logo-container {
+            width: 50px;
+            /* Increased width */
+            height: 50px;
+            /* Increased height */
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+            border-color: #3b82f6;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .logo-container-footer {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1e293b;
+            border: 2px solid #475569;
+        }
+
+        .logo-container-footer img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Fallback for when no logo is provided */
+        .logo-fallback {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-fallback-footer {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <!-- Logo Section - Fixed Version -->
+                <div class="flex items-center">
+                    <a href="{{ url_for('index') }}" class="flex items-center">
+                        <div class="logo-container">
+                            <!-- Only show image if it exists, otherwise show fallback -->
+                            <img src="{{ url_for('static', filename='images/image.png') }}" alt="Company Logo"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                style="width: 100%; height: 100%; object-fit: contain;">
+
+                            <!-- Fallback text - hidden by default, shown if image fails -->
+                            <span class="logo-fallback w-full h-full items-center justify-center"
+                                style="display: none;">CCI</span>
+                        </div>
+                        <div class="ml-3">
+                            <h1 class="text-xl font-bold text-gray-900">Cement Corporation of India</h1>
+                            <p class="text-xs text-gray-600">A Govt. of India Enterprise</p>
+                        </div>
+                    </a>
+                </div>
+
+
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="{{ url_for('index') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                    <a href="{{ url_for('board_of_directors') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Board</a>
+                    <a href="{{ url_for('plants') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Plants</a>
+                    <a href="{{ url_for('tenders') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Tenders</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+
+                    <!-- Login/Admin Section -->
+                    {% if session.get('user_id') %}
+                    {% if session.get('is_admin') %}
+                    <a href="{{ url_for('admin_dashboard') }}"
+                        class="text-green-600 hover:text-green-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <i class="fas fa-cogs mr-1"></i>Admin
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}"
+                        class="text-red-600 hover:text-red-700 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}"
+                        class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                        <i class="fas fa-sign-in-alt mr-1"></i>Login
+                    </a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button"
+                        class="mobile-menu-button text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50">
+                    <a href="{{ url_for('index') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                    <a href="{{ url_for('about') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">About</a>
+                    <a href="{{ url_for('board_of_directors') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Board</a>
+                    <a href="{{ url_for('plants') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Plants</a>
+                    <a href="{{ url_for('tenders') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Tenders</a>
+                    <a href="{{ url_for('contact') }}"
+                        class="text-gray-700 hover:text-blue-600 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+
+                    {% if session.get('user_id') %}
+                    {% if session.get('is_admin') %}
+                    <a href="{{ url_for('admin_dashboard') }}"
+                        class="text-green-600 hover:text-green-700 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-cogs mr-1"></i>Admin
+                    </a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}"
+                        class="text-red-600 hover:text-red-700 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-sign-out-alt mr-1"></i>Logout
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}"
+                        class="bg-blue-600 text-white hover:bg-blue-700 block px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-sign-in-alt mr-1"></i>Login
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="fixed top-24 right-4 z-50 space-y-2" id="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} px-4 py-3 rounded-lg shadow-lg slide-in-right
+                        {% if category == 'success' %}bg-green-500 text-white
+                        {% elif category == 'error' %}bg-red-500 text-white
+                        {% elif category == 'info' %}bg-blue-500 text-white
+                        {% else %}bg-gray-500 text-white{% endif %}">
+            <span>{{ message }}</span>
+            <button onclick="this.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <!-- Footer Logo - Replace this section with your logo -->
+                        <div class="logo-container-footer">
+                            <!-- Option 1: Use your logo image -->
+                            <!-- <img src="{{ url_for('static', filename='images/your-logo.png') }}" alt="Company Logo"> -->
+
+                            <!-- Option 2: Use a Font Awesome icon -->
+                            <!-- <i class="fas fa-industry text-white text-xl"></i> -->
+
+                            <!-- Option 3: Keep the fallback text (current CCI) -->
+                            <span class="logo-fallback-footer w-full h-full flex items-center justify-center">CCI</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Cement Corporation of India</h3>
+                            <p class="text-gray-400">A Govt. of India Enterprise</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        CCI is a leading cement manufacturer in India, committed to quality,
+                        sustainability, and innovation in the cement industry.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="{{ url_for('about') }}"
+                                class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="{{ url_for('plants') }}"
+                                class="text-gray-400 hover:text-white transition-colors">Our Plants</a></li>
+                        <li><a href="{{ url_for('tenders') }}"
+                                class="text-gray-400 hover:text-white transition-colors">Tenders</a></li>
+                        <li><a href="{{ url_for('contact') }}"
+                                class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i> New Delhi, India</p>
+                        <p><i class="fas fa-phone mr-2"></i> +91-11-XXXXXXXX</p>
+                        <p><i class="fas fa-envelope mr-2"></i> info@cciltd.in</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2024 Cement Corporation of India Limited. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.querySelector('.mobile-menu-button');
+            const mobileMenu = document.querySelector('.mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+
+        // Auto-hide flash messages
+        setTimeout(() => {
+            const flashMessages = document.getElementById('flash-messages');
+            if (flashMessages) {
+                flashMessages.style.display = 'none';
+            }
+        }, 5000);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add loading spinner to forms
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.innerHTML = '<div class="loading-spinner inline-block mr-2"></div>Sending...';
+                    submitBtn.disabled = true;
+                }
+            });
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
